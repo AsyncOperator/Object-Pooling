@@ -1,19 +1,19 @@
 using UnityEngine;
 
-public class PoolGameObject : PoolAbstract<GameObject> {
-    public override GameObject OnCreateCallback() {
-        return Instantiate(@object);
+public sealed class PoolGameObject : PoolObjectAbstract<GameObject> {
+    protected override GameObject OnCreateCallback() {
+        return prefab.gameObject;
     }
 
-    public override void OnDestroyCallback(GameObject gameObject) {
-        Destroy(gameObject);
+    protected override void OnDestroyCallback(GameObject instance) {
+        Destroy(instance.gameObject);
     }
 
-    public override void OnGetCallback(GameObject gameObject) {
-        gameObject.SetActive(true);
+    protected override void OnGetCallback(GameObject instance) {
+        instance.gameObject.SetActive(true);
     }
 
-    public override void OnReleaseCallback(GameObject gameObject) {
-        gameObject.SetActive(false);
+    protected override void OnReleaseCallback(GameObject instance) {
+        instance.gameObject.SetActive(false);
     }
 }
